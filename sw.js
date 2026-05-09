@@ -1,5 +1,14 @@
-const cacheName = 'hostel-zakatek-v1';
-const appShell = ['/', '/index.html', '/src/main.js', '/src/styles.css', '/manifest.webmanifest', '/icons/icon.svg'];
+const cacheName = 'hostel-zakatek-v3';
+const appShell = [
+  '/',
+  '/index.html',
+  '/src/main.js',
+  '/src/styles.css',
+  '/manifest.webmanifest',
+  '/icons/icon.svg',
+  '/icons/icon-192.svg',
+  '/icons/icon-512.svg',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(appShell)));

@@ -33,6 +33,8 @@ const roomTypeSelect = document.querySelector('#roomType');
 const bookingForm = document.querySelector('#bookingForm');
 const bookingSummary = document.querySelector('#bookingSummary');
 const installStatus = document.querySelector('#installStatus');
+const installButtons = document.querySelectorAll('.install-button');
+let deferredInstallPrompt = null;
 
 function formatPrice(value) {
   return new Intl.NumberFormat('pl-PL', {
@@ -126,6 +128,17 @@ function showReservation(reservation) {
   `;
 }
 
+function isStandaloneMode() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function updateInstallControls(message, shouldShowButton = false) {
+  installStatus.textContent = message;
+  installButtons.forEach((button) => {
+    button.hidden = !shouldShowButton;
+  });
+}
+
 function restoreReservation() {
   const savedReservation = localStorage.getItem(reservationStorageKey);
 
@@ -153,13 +166,49 @@ bookingForm.addEventListener('submit', (event) => {
   }
 });
 
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  updateInstallControls('Możesz zainstalować aplikację na komputerze lub telefonie.', true);
+});
+
+installButtons.forEach((button) => {
+  button.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) {
+      updateInstallControls('Jeśli nie widzisz okna instalacji, użyj opcji „Zainstaluj aplikację” w menu przeglądarki.');
+      return;
+    }
+
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+
+    if (choice.outcome === 'accepted') {
+      updateInstallControls('Aplikacja została dodana jako PWA.');
+    } else {
+      updateInstallControls('Instalacja została anulowana. Możesz wrócić do niej z menu przeglądarki.');
+    }
+  });
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  updateInstallControls('Aplikacja jest zainstalowana na tym urządzeniu.');
+});
+
+if (isStandaloneMode()) {
+  updateInstallControls('Aplikacja działa w trybie zainstalowanym.');
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
       await navigator.serviceWorker.register('/sw.js');
-      installStatus.textContent = 'PWA działa offline po pierwszym załadowaniu.';
+      if (!isStandaloneMode() && !deferredInstallPrompt) {
+        updateInstallControls('PWA działa offline. Kliknij instalację lub użyj opcji „Zainstaluj aplikację” w menu przeglądarki.', true);
+      }
     } catch {
-      installStatus.textContent = 'Service worker nie został zarejestrowany w tym środowisku.';
+      updateInstallControls('Service worker nie został zarejestrowany w tym środowisku.');
     }
   });
 }
