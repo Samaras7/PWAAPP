@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f766e" />
+    <meta
+      name="description"
+      content="Hostel Miejski Zakątek - aplikacja PWA do sprawdzania pokoi, atrakcji i wysyłania rezerwacji."
+    />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <title>Hostel Miejski Zakątek | Rezerwacje PWA</title>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="navbar" aria-label="Główna nawigacja">
+        <a class="brand" href="#top" aria-label="Hostel Miejski Zakątek">
+          <span class="brand__icon">H</span>
+          <span>Hostel Zakątek</span>
+        </a>
+        <div class="navlinks">
+          <a href="#rooms">Pokoje</a>
+          <a href="#booking">Rezerwacja</a>
+          <a href="#amenities">Udogodnienia</a>
+        </div>
+        <button class="install-button" id="installButton" type="button" hidden>Zainstaluj aplikację</button>
+      </nav>
+
+      <section class="hero__content">
+        <p class="eyebrow">PWA • offline • szybka rezerwacja</p>
+        <h1>Nowoczesny hostel w centrum miasta</h1>
+        <p class="hero__lead">
+          Zarezerwuj łóżko lub pokój prywatny, sprawdź cenę pobytu i zachowaj dostęp do
+          szczegółów hostelu nawet bez internetu.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#booking">Zarezerwuj pobyt</a>
+          <a class="button button--ghost" href="#rooms">Zobacz pokoje</a>
+        </div>
+        <div class="hero__badges" aria-label="Najważniejsze informacje">
+          <span>24/7 recepcja</span>
+          <span>Śniadanie od 25 zł</span>
+          <span>4.8/5 opinii</span>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section stats" aria-label="Statystyki hostelu">
+        <article>
+          <strong>128</strong>
+          <span>miejsc noclegowych</span>
+        </article>
+        <article>
+          <strong>350 m</strong>
+          <span>do rynku</span>
+        </article>
+        <article>
+          <strong>Free</strong>
+          <span>Wi‑Fi i cowork</span>
+        </article>
+      </section>
+
+      <section class="section" id="rooms">
+        <div class="section__heading">
+          <p class="eyebrow">Oferta</p>
+          <h2>Wybierz typ noclegu</h2>
+          <p>Elastyczne opcje dla backpackerów, grup znajomych i osób podróżujących służbowo.</p>
+        </div>
+        <div class="rooms-grid" id="roomsGrid"></div>
+      </section>
+
+      <section class="section booking" id="booking">
+        <div class="booking__copy">
+          <p class="eyebrow">Rezerwacja</p>
+          <h2>Sprawdź koszt pobytu</h2>
+          <p>
+            Wypełnij formularz, a aplikacja obliczy wstępną cenę. Dane rezerwacji zapiszą się
+            lokalnie, więc wrócisz do nich także po odświeżeniu aplikacji.
+          </p>
+          <ul class="checklist">
+            <li>Brak opłat za zmianę terminu do 48h przed przyjazdem.</li>
+            <li>Automatyczna kalkulacja liczby nocy i ceny.</li>
+            <li>Potwierdzenie gotowe do wysłania do recepcji.</li>
+          </ul>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <label>
+            Imię i nazwisko
+            <input name="guestName" type="text" placeholder="np. Anna Kowalska" required />
+          </label>
+          <label>
+            E-mail
+            <input name="email" type="email" placeholder="anna@example.com" required />
+          </label>
+          <div class="form-row">
+            <label>
+              Przyjazd
+              <input name="checkIn" type="date" required />
+            </label>
+            <label>
+              Wyjazd
+              <input name="checkOut" type="date" required />
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              Typ pokoju
+              <select name="roomType" id="roomType" required></select>
+            </label>
+            <label>
+              Goście
+              <input name="guests" type="number" min="1" max="8" value="1" required />
+            </label>
+          </div>
+          <label class="checkbox">
+            <input name="breakfast" type="checkbox" />
+            Dodaj śniadanie za 25 zł / osoba / dzień
+          </label>
+          <button class="button button--primary" type="submit">Oblicz i zapisz rezerwację</button>
+          <output class="booking-summary" id="bookingSummary" aria-live="polite"></output>
+        </form>
+      </section>
+
+      <section class="section amenities" id="amenities">
+        <div class="section__heading">
+          <p class="eyebrow">Na miejscu</p>
+          <h2>Wszystko, czego potrzebujesz w podróży</h2>
+        </div>
+        <div class="amenities-grid">
+          <article><span>☕</span><h3>Kawiarnia i kuchnia</h3><p>Wspólna kuchnia, kawa specialty i lokalne przekąski przez cały dzień.</p></article>
+          <article><span>🔐</span><h3>Bezpieczeństwo</h3><p>Szafki na kartę, monitoring części wspólnych i całodobowa obsługa.</p></article>
+          <article><span>💻</span><h3>Strefa pracy</h3><p>Ciche biurka, szybkie Wi‑Fi i sale do rozmów wideo.</p></article>
+          <article><span>🧭</span><h3>City desk</h3><p>Mapy, polecane trasy i bilety na lokalne wydarzenia.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Hostel Miejski Zakątek</p>
+      <p><span id="installStatus">Aplikacja gotowa do instalacji jako PWA.</span></p>
+      <button class="install-button install-button--footer" id="footerInstallButton" type="button" hidden>Dodaj na komputer</button>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

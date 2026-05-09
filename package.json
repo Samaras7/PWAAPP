@@ -1,0 +1,11 @@
+{
+  "name": "hostel-reservation-pwa",
+  "version": "1.0.0",
+  "description": "PWA do prezentacji hostelu i obsługi prostych rezerwacji.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "check": "node --check src/main.js && node --check sw.js"
+  }
+}

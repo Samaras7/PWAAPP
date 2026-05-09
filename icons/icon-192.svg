@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-labelledby="title">
+  <title id="title">Hostel Zakątek icon 192</title>
+  <rect width="192" height="192" rx="42" fill="#0f766e"/>
+  <path fill="#fef3c7" d="M39 82 96 36l57 46v71a12 12 0 0 1-12 12H51a12 12 0 0 1-12-12V82Z"/>
+  <path fill="#134e4a" d="M63 94h66v22H63zM63 127h66v22H63z"/>
+  <circle cx="74" cy="105" r="7" fill="#f97316"/>
+  <circle cx="74" cy="138" r="7" fill="#f97316"/>
+</svg>
