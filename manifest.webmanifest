@@ -1,0 +1,19 @@
+{
+  "name": "Hostel Miejski Zakątek - Rezerwacje",
+  "short_name": "Hostel Zakątek",
+  "description": "PWA do prezentacji hostelu i obsługi rezerwacji.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f766e",
+  "lang": "pl",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
